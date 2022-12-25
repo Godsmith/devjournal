@@ -52,8 +52,8 @@ hatch run cov
 
 ## TODO
 
-dj command installed with pyproject
-tests
-update readme
-Filter for specific dates in log
-sync with repo
+- dj command installed with pyproject
+- tests
+- update readme
+- Filter for specific dates in log
+- sync with repo
