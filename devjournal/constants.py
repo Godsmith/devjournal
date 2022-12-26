@@ -7,7 +7,7 @@ TIME_FORMAT = "%Y-%m-%d %H_%M_%S.%f"
 def devjournal_dir():
     if directory := os.getenv("DEVJOURNAL_DIR"):
         return Path(directory)
-    return Path.home() / ".devjournal"
+    return Path.home() / ".devjournal"  # pragma: no cov
 
 
 def entries_directory():
