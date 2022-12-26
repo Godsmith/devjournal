@@ -28,6 +28,9 @@ dynamic = ["version"]
 
 [project.urls]
 
+[project.scripts]
+dj = "devjournal.__main__:app"
+
 [tool.hatch.version]
 path = "devjournal/__about__.py"
 

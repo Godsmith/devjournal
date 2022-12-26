@@ -22,5 +22,4 @@ def test_text_is_added_to_entry_file(mock_home_directory):
         (mock_home_directory / ".devjournal/entries").glob("*")
     )
     assert len(files_in_entries_directory) == 1
-
     assert "hello world" in files_in_entries_directory[0].read_text()

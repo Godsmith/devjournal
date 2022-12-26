@@ -52,8 +52,13 @@ hatch run cov
 
 ## TODO
 
-- dj command installed with pyproject
 - tests
 - update readme
 - Filter for specific dates in log
 - sync with repo
+- use rich for better output colors
+- use textual for better log browsing - type to filter?
+- add with no arguments starts editor
+- editing previous days
+- make find nicer which textual. Low prio.
+- Log and find should work like git log, opening on something like less if longer than a screen.
