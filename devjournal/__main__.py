@@ -1,26 +1,28 @@
 import typer
 
-from devjournal import devjournal
+from .commands.add import add as add_command
+from .commands.find import find as find_command
+from .commands.log import log as log_command
 
 app = typer.Typer()
 
 
 @app.command()
 def add(text: list[str]):
-    devjournal.add(" ".join(text))
+    add_command(" ".join(text))
     # TODO: Do a git pull --rebase and then git push here
 
 
 @app.command()
 def log():
     # TODO: Do a git pull --rebase here
-    devjournal.log()
+    log_command()
 
 
 @app.command()
 def find(words: list[str]):
     # TODO: Do a git pull --rebase here
-    devjournal.find(words)
+    find_command(words)
 
 
 if __name__ == "__main__":
