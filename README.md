@@ -32,9 +32,9 @@ of your choice, to make devjournal use that editor when editing journal entries.
 $ dj add
 ```
 
-This command will open the editor used by the environment variable `EDITOR` by default.
-If that variable is not set, it will use the `start` command instead, which on Windows
-opens the editor for .txt files (by default Notepad).
+This command will open the entry in the editor specified by the environment variable 
+`EDITOR`. If that variable is not set, it will use the `start` command instead, which 
+on Windows opens the editor for .txt files (by default Notepad).
 
 Alternatively, you can add the text of the entry directly on the command line:
 
@@ -76,11 +76,14 @@ hatch run cov
 
 ## Roadmap
 
-- Filter for specific dates in log
 - sync with repo
-- use rich for better output colors
-- use textual for better log browsing - type to filter?
-- add with no arguments starts editor
-- editing previous days
-- make find nicer which textual. Low prio.
-- Log and find should work like git log, opening on something like less if longer than a screen.
+- Replace find and log with a browser
+   - Features: 
+     - filtering entries by text
+     - filtering entries by 
+     - options for selecting a certain entry 
+     - editing the selected entry
+   - Can textual be used?
+     - textual does not work very well in the vscode terminal, so perhaps not.
+- Investigate if multiple entries from the same day should be combined under the same
+  heading, and if so if they should only show the date and not the time.
