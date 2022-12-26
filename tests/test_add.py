@@ -1,3 +1,5 @@
+import re
+
 from typer.testing import CliRunner
 
 from devjournal.__main__ import app
@@ -5,21 +7,16 @@ from devjournal.__main__ import app
 runner = CliRunner()
 
 
-def test_directory_is_created_automatically(mock_home_directory):
+def test_file_is_created(mock_devjournal_dir):
     runner.invoke(app, ["add", "hello", "world"], catch_exceptions=False)
 
-    folders_in_home_directory = mock_home_directory.glob("*")
-    folder_names_in_home_directory = [
-        folder.name for folder in folders_in_home_directory
-    ]
-    assert folder_names_in_home_directory == [".devjournal"]
+    entry_files = list(mock_devjournal_dir.glob("entries/*"))
+    assert len(entry_files) == 1
+    assert re.match("20..-..-.. .._.._.........", entry_files[0].name)
 
 
-def test_text_is_added_to_entry_file(mock_home_directory):
+def test_text_is_added_to_entry_file(mock_devjournal_dir):
     runner.invoke(app, ["add", "hello", "world"], catch_exceptions=False)
 
-    files_in_entries_directory = list(
-        (mock_home_directory / ".devjournal/entries").glob("*")
-    )
-    assert len(files_in_entries_directory) == 1
-    assert "hello world" in files_in_entries_directory[0].read_text()
+    entry_files = list(mock_devjournal_dir.glob("entries/*"))
+    assert "hello world" in entry_files[0].read_text()

@@ -2,12 +2,14 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
+from .constants import devjournal_dir
+
 TIME_FORMAT = "%Y-%m-%d %H_%M_%S.%f"
 HOME_DIRECTORY = Path.home()
 
 
 def entries_directory():
-    return HOME_DIRECTORY / ".devjournal/entries"
+    return devjournal_dir() / "entries"
 
 
 @dataclass

@@ -10,6 +10,11 @@
 pip install devjournal
 ```
 
+## Configuration
+
+The default directory for storing configuration and journal entries is `~/.devjournal`.
+This can be overridden with the `DEVJOURNAL_DIR` environment variable.
+
 ## Usage
 
 ### Adding new journal entry
