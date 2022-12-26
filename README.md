@@ -1,8 +1,14 @@
 # devjournal
 
+Terminal-based journal for developers.
+
 **Table of Contents**
 
 - [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Developing](#developing)
+- [Roadmap](#roadmap)
 
 ## Installation
 
@@ -41,7 +47,7 @@ add hello world
 ```
 
 
-## Development
+## Developing
 
 ```sh
 # Setup pre-commit and pre-push hooks
@@ -55,10 +61,8 @@ hatch run pre-commit install -t pre-push
 hatch run cov
 ```
 
-## TODO
+## Roadmap
 
-- tests
-- update readme
 - Filter for specific dates in log
 - sync with repo
 - use rich for better output colors
