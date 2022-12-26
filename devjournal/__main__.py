@@ -1,3 +1,5 @@
+from typing import Optional
+
 import typer
 
 from .commands.add import add as add_command
@@ -8,8 +10,11 @@ app = typer.Typer()
 
 
 @app.command()
-def add(text: list[str]):
-    add_command(" ".join(text))
+def add(text: Optional[list[str]] = typer.Argument(None)):
+    if text:
+        add_command(" ".join(text))
+    else:
+        add_command()
     # TODO: Do a git pull --rebase and then git push here
 
 

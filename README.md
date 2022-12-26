@@ -21,9 +21,22 @@ pip install devjournal
 The default directory for storing configuration and journal entries is `~/.devjournal`.
 This can be overridden with the `DEVJOURNAL_DIR` environment variable.
 
+If running on Windows, consider setting the environment variable `EDITOR` to an editor
+of your choice, to make devjournal use that editor when editing journal entries.
+
 ## Usage
 
 ### Adding new journal entry
+
+```sh
+$ dj add
+```
+
+This command will open the editor used by the environment variable `EDITOR` by default.
+If that variable is not set, it will use the `start` command instead, which on Windows
+opens the editor for .txt files (by default Notepad).
+
+Alternatively, you can add the text of the entry directly on the command line:
 
 ```sh
 $ dj add This is my journal entry
