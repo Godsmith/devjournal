@@ -11,6 +11,10 @@ def devjournal_dir():
     return Path.home() / ".devjournal"  # pragma: no cov
 
 
+def config_file():
+    return devjournal_dir() / "config.toml"
+
+
 def entries_directory():
     return devjournal_dir() / "entries"
 

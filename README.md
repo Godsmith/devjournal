@@ -18,6 +18,9 @@ pip install devjournal
 
 ## Configuration
 
+Optionally, run `dj setup` to specify a Git repo and branch to be used for syncing. Currently, it
+is required that the repo has at least one commit already.
+
 The default directory for storing configuration and journal entries is `~/.devjournal`.
 This can be overridden with the `DEVJOURNAL_DIR` environment variable.
 
@@ -76,7 +79,8 @@ hatch run cov
 
 ## Roadmap
 
-- sync with repo
+- Remove requirement for having the remote repo having at least one commit
+- Speed up by not syncing with Git all the time
 - Replace find and log with a browser
    - Features: 
      - filtering entries by text

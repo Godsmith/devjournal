@@ -16,7 +16,7 @@ class Entry:
 
 
 def get_entries() -> list[Entry]:
-    paths = entries_directory().glob("*")
+    paths = entries_directory().glob("*.txt")
     return [
         Entry(datetime_from_filename(path.name), path.read_text()) for path in paths
     ]

@@ -55,3 +55,13 @@ class TestWithoutArguments:
         entry_files = list(mock_devjournal_dir.glob("entries/*"))
         assert not entry_files
         assert result.output == "File empty, entry aborted.\n"
+
+
+class TestGit:
+    def test_add_pulls_and_then_pushes_to_git_if_config_file(
+        self, config_file, mock_repo
+    ):
+        result = runner.invoke(app, ["add", "hello", "world"], catch_exceptions=False)
+        assert result.exit_code == 0
+        assert mock_repo.origin.pull_called
+        assert mock_repo.git.push_called
