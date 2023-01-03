@@ -16,13 +16,22 @@ Terminal-based journal for developers.
 pip install devjournal
 ```
 
-## Configuration
+## Optional configuration
 
-Optionally, run `dj setup` to specify a Git repo and branch to be used for syncing. Currently, it
-is required that the repo has at least one commit already.
+### Directory
 
 The default directory for storing configuration and journal entries is `~/.devjournal`.
 This can be overridden with the `DEVJOURNAL_DIR` environment variable.
+
+### Git synchronization
+
+Optionally, run `dj setup` to specify a Git repo and branch to be used for syncing. 
+It is required that 
+- you have ssh access to the server,
+- the repo has at least one commit already, and
+- you have push rights on to the specified branch.
+
+### Editor
 
 If running on Windows, consider setting the environment variable `EDITOR` to an editor
 of your choice, to make devjournal use that editor when editing journal entries.
