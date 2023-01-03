@@ -6,9 +6,9 @@ TIME_FORMAT = "%Y-%m-%d_%H-%M-%S.%f"
 
 
 def devjournal_dir():
-    if directory := os.getenv("DEVJOURNAL_DIR"):
-        return Path(directory)
-    return Path.home() / ".devjournal"  # pragma: no cov
+    directory = Path(os.getenv("DEVJOURNAL_DIR") or (Path.home() / ".devjournal"))
+    directory.mkdir(exist_ok=True)
+    return directory
 
 
 def config_file():

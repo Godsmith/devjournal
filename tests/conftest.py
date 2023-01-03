@@ -73,7 +73,14 @@ def mock_devjournal_dir(monkeypatch: MonkeyPatch, tmp_path):
     return tmp_path
 
 
-@pytest.fixture()
+@pytest.fixture
+def nonexisting_devjournal_dir(monkeypatch: MonkeyPatch, tmp_path):
+    path = tmp_path / ".devjournal"
+    monkeypatch.setenv("DEVJOURNAL_DIR", str(path))
+    return path
+
+
+@pytest.fixture
 def config_file(mock_devjournal_dir: Path):
     (mock_devjournal_dir / "config.toml").write_text(
         'remote_repo_url = "myrepo"\nremote_branch = "mybranch"'
