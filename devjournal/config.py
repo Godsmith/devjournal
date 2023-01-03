@@ -20,6 +20,10 @@ class Config:
 remote_branch = "{self.remote_branch}"'''
         )
 
+    @property
+    def text(self):
+        return config_file().read_text()
+
 
 def get_config():
     if not config_file().exists():
