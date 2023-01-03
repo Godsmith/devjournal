@@ -13,11 +13,13 @@ app = typer.Typer()
 
 @app.command()
 def setup():
+    """Set up Git repo synchronization"""
     setup_command()
 
 
 @app.command()
 def add(text: Optional[list[str]] = typer.Argument(None)):
+    """Add a new entry"""
     if text:
         add_command(" ".join(text))
     else:
@@ -29,6 +31,7 @@ def add(text: Optional[list[str]] = typer.Argument(None)):
 
 @app.command()
 def log():
+    """List all entries"""
     if is_repo_defined():
         pull_rebase()
     log_command()
@@ -36,6 +39,7 @@ def log():
 
 @app.command()
 def find(words: list[str]):
+    """Search for entry containing text"""
     if is_repo_defined():
         pull_rebase()
     find_command(words)
