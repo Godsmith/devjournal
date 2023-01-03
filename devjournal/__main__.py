@@ -8,7 +8,7 @@ from .commands.log import log as log_command
 from .commands.setup import setup as setup_command
 from .git import is_repo_defined, pull_rebase, push
 
-app = typer.Typer()
+app = typer.Typer(no_args_is_help=True)
 
 
 @app.command()
