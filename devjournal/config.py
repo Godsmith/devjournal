@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 
 import tomli
-from rich import print
 
 from devjournal.constants import config_file
 
@@ -20,7 +19,6 @@ class Config:
             f'''remote_repo_url = "{self.remote_repo_url}"
 remote_branch = "{self.remote_branch}"'''
         )
-        print(f"Wrote config to {config_file()}.")
 
 
 def get_config():
