@@ -1,25 +1,10 @@
 import re
-import subprocess
-from pathlib import Path
 
 from typer.testing import CliRunner
 
 from devjournal.__main__ import app
 
 runner = CliRunner()
-
-
-class MockProcess:
-    def wait(self):
-        return
-
-
-def MockPopen(text_to_write: str):
-    def inner(command, **kwargs):
-        Path(command[-1]).write_text(text_to_write)
-        return MockProcess()
-
-    return inner
 
 
 class TestWithArguments:
@@ -39,17 +24,17 @@ class TestWithArguments:
 
 
 class TestWithoutArguments:
-    def test_text_is_added_to_entry_file(self, mock_devjournal_dir, monkeypatch):
-        monkeypatch.setattr(subprocess, "Popen", MockPopen(text_to_write="hello world"))
+    def test_text_is_added_to_entry_file(self, mock_devjournal_dir, mock_popen):
+        mock_popen("hello world")
         runner.invoke(app, ["add"], catch_exceptions=False)
 
         entry_files = list(mock_devjournal_dir.glob("entries/*"))
         assert "hello world" in entry_files[0].read_text()
 
     def test_abort_with_error_message_if_no_text_entered(
-        self, mock_devjournal_dir, monkeypatch
+        self, mock_devjournal_dir, mock_popen
     ):
-        monkeypatch.setattr(subprocess, "Popen", MockPopen(text_to_write=""))
+        mock_popen("")
         result = runner.invoke(app, ["add"], catch_exceptions=False)
 
         entry_files = list(mock_devjournal_dir.glob("entries/*"))

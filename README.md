@@ -53,6 +53,13 @@ Alternatively, you can add the text of the entry directly on the command line:
 ```sh
 $ dj add This is my journal entry
 ```
+
+### Amending the last journal entry
+
+```sh
+$ dj amend
+```
+
 ### Showing all entries
 
 ```sh

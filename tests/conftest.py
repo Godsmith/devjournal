@@ -1,3 +1,4 @@
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -94,3 +95,23 @@ def mock_print_entries(monkeypatch: MonkeyPatch):
     monkeypatch.setattr(devjournal.entry, "print_entries", return_value)
 
     return return_value
+
+
+class MockProcess:
+    def wait(self):
+        return
+
+
+@pytest.fixture
+def mock_popen(monkeypatch):
+    def do_mock(output_text: str):
+        def MockPopen(output_text: str):
+            def inner(command, **kwargs):
+                Path(command[-1]).write_text(output_text)
+                return MockProcess()
+
+            return inner
+
+        monkeypatch.setattr(subprocess, "Popen", MockPopen(output_text=output_text))
+
+    return do_mock
