@@ -26,6 +26,7 @@ classifiers = [
 dependencies = [
   "typer==0.7.0",
   "GitPython==3.1.29",
+  "rich==12.6.0"
 ]
 dynamic = ["version"]
 
