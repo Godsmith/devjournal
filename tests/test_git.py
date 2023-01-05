@@ -5,7 +5,7 @@ from devjournal.__main__ import app
 runner = CliRunner()
 
 
-def test_git_error_message(config_file):
+def test_git_error_message(config_file, mock_run_git_script):
     result = runner.invoke(app, ["find", "foo"], catch_exceptions=False)
     assert result.exit_code == 0
     assert (

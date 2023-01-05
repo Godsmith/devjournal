@@ -44,7 +44,7 @@ class TestWithoutArguments:
 
 class TestGit:
     def test_add_pulls_and_then_pushes_to_git_if_config_file(
-        self, config_file, mock_repo
+        self, config_file, mock_repo, mock_run_git_script
     ):
         result = runner.invoke(app, ["add", "hello", "world"], catch_exceptions=False)
         assert result.exit_code == 0

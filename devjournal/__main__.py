@@ -7,7 +7,8 @@ from .commands.amend import amend as amend_command
 from .commands.find import find as find_command
 from .commands.log import log as log_command
 from .commands.setup import setup as setup_command
-from .git import is_repo_defined, pull_rebase, push
+from .config import is_repo_defined
+from .git import run_git_script
 
 app = typer.Typer(no_args_is_help=True)
 
@@ -26,8 +27,8 @@ def add(text: Optional[list[str]] = typer.Argument(None)):
     else:
         add_command()
     if is_repo_defined():
-        pull_rebase()
-        push()
+        run_git_script("pull_rebase")
+        run_git_script("push")
 
 
 @app.command()
@@ -40,7 +41,7 @@ def amend():
 def log():
     """List all entries"""
     if is_repo_defined():
-        pull_rebase()
+        run_git_script("pull_rebase")
     log_command()
 
 
@@ -48,7 +49,7 @@ def log():
 def find(words: list[str]):
     """Search for entry containing text"""
     if is_repo_defined():
-        pull_rebase()
+        run_git_script("pull_rebase")
     find_command(words)
 
 

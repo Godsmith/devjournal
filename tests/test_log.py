@@ -19,7 +19,9 @@ def test_shows_all_entries(mock_print_entries: MockPrintEntries):
 
 
 class TestGit:
-    def test_pulls_before_if_config_file(self, config_file, mock_repo):
+    def test_pulls_before_if_config_file(
+        self, config_file, mock_repo, mock_run_git_script
+    ):
         result = runner.invoke(app, ["log"], catch_exceptions=False)
         assert result.exit_code == 0
         assert mock_repo.origin.pull_called

@@ -5,8 +5,12 @@ import pytest
 from pytest import MonkeyPatch
 
 import devjournal.entry
-import devjournal.git
+import devjournal.git_scripts.pull_rebase
+import devjournal.git_scripts.push
+from devjournal import __main__
 from devjournal.entry import Entry
+from devjournal.git_scripts.pull_rebase import pull_rebase
+from devjournal.git_scripts.push import push
 
 
 class MockPrintEntries:
@@ -64,7 +68,8 @@ class MockRepo:
 @pytest.fixture
 def mock_repo(monkeypatch: MonkeyPatch):
     mock_repo_returner = MockRepoReturner()
-    monkeypatch.setattr(devjournal.git, "Repo", mock_repo_returner)
+    monkeypatch.setattr(devjournal.git_scripts.pull_rebase, "Repo", mock_repo_returner)
+    monkeypatch.setattr(devjournal.git_scripts.push, "Repo", mock_repo_returner)
     return mock_repo_returner.repo
 
 
@@ -115,3 +120,16 @@ def mock_popen(monkeypatch):
         monkeypatch.setattr(subprocess, "Popen", MockPopen(output_text=output_text))
 
     return do_mock
+
+
+def _mock_run_git_script(name):
+    if name == "pull_rebase":
+        pull_rebase()
+    elif name == "push":
+        push()
+
+
+@pytest.fixture
+def mock_run_git_script(monkeypatch):
+    """Mock run_git_script to run in the same process instead of in a new one"""
+    monkeypatch.setattr(__main__, "run_git_script", _mock_run_git_script)

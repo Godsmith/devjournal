@@ -30,3 +30,7 @@ def get_config():
         return Config("", "")
     config_dict = tomli.loads(config_file().read_text())
     return Config(**config_dict)
+
+
+def is_repo_defined():
+    return bool(get_config().remote_repo_url)
