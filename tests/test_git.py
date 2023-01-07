@@ -16,5 +16,6 @@ fatal: Could not read from remote repository.'
 Config file:
   remote_repo_url = \"myrepo\"
   remote_branch = \"mybranch\"
+
 """
     )

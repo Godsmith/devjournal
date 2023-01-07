@@ -13,9 +13,9 @@ from devjournal.git_scripts.pull_rebase import pull_rebase
 from devjournal.git_scripts.push import push
 
 
-class MockPrintEntries:
-    def __call__(self, entries: list[Entry]):
-        self.entries = entries
+class MockPrintIdsAndEntries:
+    def __call__(self, ids_and_entries: list[tuple[int, Entry]]):
+        self.entries = [entry for _, entry in ids_and_entries]
 
 
 class MockRepoReturner:
@@ -94,10 +94,10 @@ def config_file(mock_devjournal_dir: Path):
 
 
 @pytest.fixture()
-def mock_print_entries(monkeypatch: MonkeyPatch):
+def mock_print_ids_and_entries(monkeypatch: MonkeyPatch):
 
-    return_value = MockPrintEntries()
-    monkeypatch.setattr(devjournal.entry, "print_entries", return_value)
+    return_value = MockPrintIdsAndEntries()
+    monkeypatch.setattr(devjournal.entry, "print_ids_and_entries", return_value)
 
     return return_value
 

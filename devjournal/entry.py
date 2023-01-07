@@ -15,17 +15,17 @@ class Entry:
     text: str
 
 
-def get_entries() -> list[Entry]:
+def get_ids_and_entries() -> list[tuple[int, Entry]]:
     paths = entries_directory().glob("*.txt")
     return [
-        Entry(datetime_from_filename(path.name), path.read_text()) for path in paths
+        (i, Entry(datetime_from_filename(path.name), path.read_text()))
+        for i, path in enumerate(paths, 1)
     ]
 
 
-def print_entries(entries: list[Entry]):
-    for entry in entries:
-        table = Table(show_header=False, show_lines=True, highlight=True)
+def print_ids_and_entries(ids_and_entries: list[tuple[int, Entry]]):
+    table = Table(show_header=False, show_edge=False, highlight=True)
+    for i, entry in ids_and_entries:
         time = entry.datetime.strftime(TIME_FORMAT_FOR_PRINTING)
-        table.add_row(f"{time}")
-        table.add_row(f"{entry.text}")
-        print(table)
+        table.add_row(str(i), time, entry.text)
+    print(table)
