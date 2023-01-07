@@ -3,6 +3,7 @@ from typing import Optional
 import typer
 
 from .commands.add import add as add_command
+from .commands.delete import delete as delete_command
 from .commands.edit import edit as edit_command
 from .commands.find import find as find_command
 from .commands.log import log as log_command
@@ -27,20 +28,31 @@ def add(text: Optional[list[str]] = typer.Argument(None)):
     else:
         add_command()
     if is_repo_defined():
-        run_git_script("pull_rebase")
-        run_git_script("push")
+        run_git_script("add_commit_pull_rebase_push")
+
+
+@app.command()
+def delete(id_: int):
+    """Delete an entry"""
+    delete_command(id_)
+    if is_repo_defined():
+        run_git_script("add_commit_pull_rebase_push")  # pragma: no cov
 
 
 @app.command()
 def amend():
     """Amend the last entry"""
     edit_command(0)
+    if is_repo_defined():
+        run_git_script("add_commit_pull_rebase_push")  # pragma: no cov
 
 
 @app.command()
 def edit(id_: int = typer.Argument(0)):
-    """Edit entry"""
+    """Edit an entry"""
     edit_command(id_)
+    if is_repo_defined():
+        run_git_script("add_commit_pull_rebase_push")  # pragma: no cov
 
 
 @app.command()

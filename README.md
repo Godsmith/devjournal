@@ -36,6 +36,7 @@ It is required that
 If running on Windows, consider setting the environment variable `EDITOR` to an editor
 of your choice, to make devjournal use that editor when editing journal entries.
 
+
 ## Usage
 
 ### Adding new journal entry
@@ -54,28 +55,41 @@ Alternatively, you can add the text of the entry directly on the command line:
 $ dj add This is my journal entry
 ```
 
-### Amending the last journal entry
+
+### Listing
+
+#### Listing all entries
+
+```sh
+$ dj log
+1 | 2022-12-25 16:15:56.536078 | add hello world
+```
+
+#### Listing only entries containing any of the search terms
+
+```sh
+$ dj find hello
+1 | 2022-12-25 16:15:56.536078 | add hello world
+```
+
+### Editing
+
+#### Editing a journal entry
+
+```sh
+$ dj edit 1
+```
+
+#### Amending the last journal entry
 
 ```sh
 $ dj amend
 ```
 
-### Showing all entries
+#### Deleting a journal entry
 
 ```sh
-$ dj log
-2022-12-25 16:15:56.536078
-
-add hello world
-```
-
-### Show only entries containing any of the search terms
-
-```sh
-$ dj find hello
-2022-12-25 16:15:56.536078
-
-add hello world
+$ dj delete 1
 ```
 
 

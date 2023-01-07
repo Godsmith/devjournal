@@ -5,12 +5,14 @@ import pytest
 from pytest import MonkeyPatch
 
 import devjournal.entry
+import devjournal.git_scripts.add_commit_pull_rebase_push
 import devjournal.git_scripts.pull_rebase
-import devjournal.git_scripts.push
 from devjournal import __main__
 from devjournal.entry import Entry
+from devjournal.git_scripts.add_commit_pull_rebase_push import (
+    add_commit_pull_rebase_push,
+)
 from devjournal.git_scripts.pull_rebase import pull_rebase
-from devjournal.git_scripts.push import push
 
 
 class MockPrintIdsAndEntries:
@@ -50,6 +52,10 @@ class MockRepo:
 
         reference = MockReference
 
+    class MockIndex:
+        def diff(self, *args, **kwargs):
+            return True
+
     def __init__(self, *args, **kwargs) -> None:
         self.git = self.MockGit()
         self.git.push_called = False
@@ -57,6 +63,7 @@ class MockRepo:
         self.origin.pull_called = False
         self.remotes = ["myremote"]
         self.head = self.MockHead
+        self.index = self.MockIndex()
 
     def create_remote(self, *args, **kwargs):
         return self.origin
@@ -69,7 +76,9 @@ class MockRepo:
 def mock_repo(monkeypatch: MonkeyPatch):
     mock_repo_returner = MockRepoReturner()
     monkeypatch.setattr(devjournal.git_scripts.pull_rebase, "Repo", mock_repo_returner)
-    monkeypatch.setattr(devjournal.git_scripts.push, "Repo", mock_repo_returner)
+    monkeypatch.setattr(
+        devjournal.git_scripts.add_commit_pull_rebase_push, "Repo", mock_repo_returner
+    )
     return mock_repo_returner.repo
 
 
@@ -125,8 +134,8 @@ def mock_popen(monkeypatch):
 def _mock_run_git_script(name):
     if name == "pull_rebase":
         pull_rebase()
-    elif name == "push":
-        push()
+    elif name == "add_commit_pull_rebase_push":
+        add_commit_pull_rebase_push()
 
 
 @pytest.fixture
