@@ -3,7 +3,7 @@ from typing import Optional
 import typer
 
 from .commands.add import add as add_command
-from .commands.amend import amend as amend_command
+from .commands.edit import edit as edit_command
 from .commands.find import find as find_command
 from .commands.log import log as log_command
 from .commands.setup import setup as setup_command
@@ -34,7 +34,13 @@ def add(text: Optional[list[str]] = typer.Argument(None)):
 @app.command()
 def amend():
     """Amend the last entry"""
-    amend_command()
+    edit_command(0)
+
+
+@app.command()
+def edit(id_: int = typer.Argument(0)):
+    """Edit entry"""
+    edit_command(id_)
 
 
 @app.command()

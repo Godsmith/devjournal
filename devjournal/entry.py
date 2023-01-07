@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
+from pathlib import Path
 
 from rich import print
 from rich.table import Table
@@ -14,13 +15,19 @@ class Entry:
     datetime: datetime
     text: str
 
+    @classmethod
+    def from_path(cls, path: Path):
+        return cls(datetime_from_filename(path.name), path.read_text())
+
+
+def get_entry_path(id_: int):
+    paths = list(entries_directory().glob("*.txt"))
+    return paths[id_ - 1]
+
 
 def get_ids_and_entries() -> list[tuple[int, Entry]]:
     paths = entries_directory().glob("*.txt")
-    return [
-        (i, Entry(datetime_from_filename(path.name), path.read_text()))
-        for i, path in enumerate(paths, 1)
-    ]
+    return [(i, Entry.from_path(path)) for i, path in enumerate(paths, 1)]
 
 
 def print_ids_and_entries(ids_and_entries: list[tuple[int, Entry]]):
