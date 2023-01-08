@@ -1,20 +1,24 @@
 # devjournal
 
-Terminal-based journal for developers.
+Slick terminal-based journal for developers.
 
-**Table of Contents**
 
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Developing](#developing)
-- [Roadmap](#roadmap)
+## Feature comparison
+
+|                                        | devjournal           | Evernote           |
+| -------------------------------------- | -------------------- | ------------------ |
+| Creating, editing and deleting entries | :white_check_mark:   | :white_check_mark: |
+| Closed source                          | :white_large_square: | :white_check_mark: |
+| Data stored outside your control       | :white_large_square: | :white_check_mark: |
+| Overly bloated and impractical CLI     | :white_large_square: | :white_check_mark: |
+
 
 ## Installation
 
 ```sh
 pip install devjournal
 ```
+
 
 ## Optional configuration
 
@@ -56,7 +60,7 @@ $ dj add This is my journal entry
 ```
 
 
-### Listing
+### Listing entries
 
 #### Listing all entries
 
@@ -72,7 +76,7 @@ $ dj find hello
 1 | 2022-12-25 16:15:56.536078 | add hello world
 ```
 
-### Editing
+### Editing entries
 
 #### Editing a journal entry
 
@@ -93,6 +97,11 @@ $ dj delete 1
 ```
 
 
+## Low-level control
+
+Each run of `dj add` creates a new file in `~/.devjournal/entries`. In case of unexpected events, you can always edit the files and do git commands in that folder manually.
+
+
 ## Developing
 
 ```sh
@@ -106,18 +115,3 @@ hatch run pre-commit install -t pre-push
 ```sh
 hatch run cov
 ```
-
-## Roadmap
-
-- Remove requirement for having the remote repo having at least one commit
-- Speed up by not syncing with Git all the time
-- Replace find and log with a browser
-   - Features: 
-     - filtering entries by text
-     - filtering entries by 
-     - options for selecting a certain entry 
-     - editing the selected entry
-   - Can textual be used?
-     - textual does not work very well in the vscode terminal, so perhaps not.
-- Investigate if multiple entries from the same day should be combined under the same
-  heading, and if so if they should only show the date and not the time.
